@@ -1,5 +1,9 @@
 import { OperationResult } from "../types/calculatorTypes";
 
+/**
+ * Returns the division of two numbers.
+ * Returns and error in case of the second number is a 0.
+ */
 export function division(
   firstNumber: number | string,
   secondNumber: number | string
@@ -9,6 +13,9 @@ export function division(
     : { number: Number(firstNumber) / Number(secondNumber) };
 }
 
+/**
+ * Returns the division of a number per 100.
+ */
 export function defaultDivision(number: number | string): number {
   return Number(number) / 100;
 }

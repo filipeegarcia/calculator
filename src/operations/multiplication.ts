@@ -1,6 +1,6 @@
 export function multiplication(
-  firstNumber: number,
-  secondNumber: number
+  firstNumber: number | string,
+  secondNumber: number | string
 ): number {
-  return firstNumber * secondNumber;
+  return Number(firstNumber) * Number(secondNumber);
 }

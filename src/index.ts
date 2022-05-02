@@ -2,7 +2,7 @@ import readline from "readline";
 import { calculate } from "./controllers/calculatorController";
 
 /**
- * Attempts to perform the math operation.
+ * Attempts to execute the calculator.
  * Logs the error in case of failure.
  */
 try {
@@ -13,7 +13,7 @@ try {
 
 /**
  * Reads the input via command line.
- * Logs the operation result on the command line.
+ * Logs the operation result/error on the command line.
  * Exits the program if the user enters "exit".
  */
 function initializeCalculator() {
@@ -36,10 +36,16 @@ function initializeCalculator() {
     const result = calculate(
       operationInput,
       Number(process.env.IN_MEMORY_NUMBER)
-    )!;
+    );
 
-    process.env.IN_MEMORY_NUMBER = result.toString();
-    console.log(result);
+    if (result.error) {
+      process.env.IN_MEMORY_NUMBER = "0";
+      console.log(result.error);
+    } else {
+      process.env.IN_MEMORY_NUMBER = result.number!.toString();
+
+      console.log(result.number);
+    }
     readLine.prompt();
   });
 }

@@ -1,5 +1,5 @@
 import readline from "readline";
-import { calculate } from "./controllers/calculatorController";
+import { executeMathOperation } from "./calculator/services/orchestrator";
 
 /**
  * Attempts to execute the calculator.
@@ -25,6 +25,9 @@ function initializeCalculator() {
   });
 
   console.log("Welcome to the Cli Calculator!");
+  console.log(
+    "Please, check the ReadMe file to get instructions for how to use. Execute multiplications and divisions first."
+  );
   readLine.setPrompt("> ");
   readLine.prompt();
 
@@ -33,7 +36,7 @@ function initializeCalculator() {
       process.exit();
     }
 
-    const result = calculate(
+    const result = executeMathOperation(
       operationInput,
       Number(process.env.IN_MEMORY_NUMBER)
     );

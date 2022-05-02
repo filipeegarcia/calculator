@@ -1,0 +1,33 @@
+import { OperationResult } from "../types/calculatorTypes";
+import { getOperationResult } from "./executionClient";
+import { getParsedOperation } from "./parser";
+import { isInputInvalid } from "./validator";
+
+/**
+ * Orchestrates all the necessary calls to validate the input
+ * and calculate the operation.
+ */
+export function executeMathOperation(
+  input: string,
+  inMemoryNumber: number
+): OperationResult {
+  if (input === "c") {
+    inMemoryNumber = 0;
+    return { number: inMemoryNumber };
+  }
+
+  if (isInputInvalid(input)) {
+    return {
+      error:
+        "Invalid Input. The expected format is:  '4 * 3 + 2' or '4*3+2'. ! and % should be before number: '!10, %10'",
+    };
+  }
+
+  const parsedOperation = getParsedOperation(input);
+
+  return getOperationResult(
+    inMemoryNumber,
+    parsedOperation.operationArray,
+    parsedOperation.startsWithOperator
+  );
+}
